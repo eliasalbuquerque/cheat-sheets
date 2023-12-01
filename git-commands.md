@@ -1,17 +1,27 @@
+<!--
+title: 'git-commands.md'
+author: 'Elias Albuquerque'
+created: '2023-11-30'
+update: '2023-12-01'
+-->
+
+
 <!-- omit from toc -->
 # Git Commands
 
 - [Create a repository from local repository](#create-a-repository-from-local-repository)
 - [Create and switch to a new branch](#create-and-switch-to-a-new-branch)
 - [How to commit changes](#how-to-commit-changes)
-- [Conventional commits](#conventional-commits)
+  - [Some examples to best practices to commit](#some-examples-to-best-practices-to-commit)
+  - [View and change the subject of the last commit](#view-and-change-the-subject-of-the-last-commit)
+  - [How to uncommit last commit in git](#how-to-uncommit-last-commit-in-git)
 - [Update your local working branch](#update-your-local-working-branch)
-- [Check changes in the repository for different branches](#check-changes-in-the-repository-for-different-branches)
+- [Check differences between two repository branches](#check-differences-between-two-repository-branches)
 
 
 ## Create a repository from local repository
 
-To create a GitHub repository from a local repository, you can follow these 
+To create a GitHub repository from a local ${title} repository, you can follow these 
 steps:
 
 1. Initialize a local Git repository (if not already done):
@@ -78,13 +88,16 @@ stage files using the `git add` command:
 2. Commit your changes: After staging your changes, you can commit them using 
 the `git commit` command:
 
-        git commit -m "<message>"
+        git commit -m "<subject>" -m "<description>"
 
-    Replace `<message>` with a short description of the changes you’ve made. 
-    This message will be associated with the commit and can help you and others 
-    understand what changes were made.
+    The first `-m` option is the *subject* (short description), and the next is 
+    the extended *description* (body).
+    Replace `<subject>` with a short description of the changes you’ve made and 
+    `<description>` for a brief description of what is being resolved in this 
+    release. This message will be associated with the commit and can help you 
+    and others understand what changes were made.
 
-3. Push your changes: If you’re working with a remote repository, you can push 
+1. Push your changes: If you’re working with a remote repository, you can push 
 your changes to it using the `git push` command:
 
         git push
@@ -92,37 +105,103 @@ your changes to it using the `git push` command:
 This will push your commits to the remote repository.
 
 
-## Conventional commits
+### Some examples to best practices to commit
 
-The conventional commits¹ contains the following structural elements, to 
-communicate intent to the consumers of your library:
+1. **Fix**: This type of commit message is used when you make a bug fix.
 
-1. **fix:** a commit of the type fix patches a bug in your codebase (this 
-2. correlates with PATCH in Semantic Versioning).
+        fix(server): fix server connection issue
 
-3. **feat:** a commit of the type feat introduces a new feature to the codebase 
-4. (this correlates with MINOR in Semantic Versioning).
+    In this example, a server connection issue was fixed.
 
-5. **BREAKING CHANGE:** a commit that has a footer `BREAKING CHANGE:`, or 
-appends a `!` after the type/scope, introduces a breaking API change 
-(correlating with MAJOR in Semantic Versioning). A BREAKING CHANGE can be part 
-of commits of any type.
+2. **Feat**: This type of commit message is used when you introduce a new 
+feature.
 
-6. **types** other than *fix:* and *feat:* are allowed, for example 
-*@commitlint/config-conventional* (based on the Angular convention) recommends 
-`build:`, `chore:`, `ci:`, `docs:`, `style:`, `refactor:`, `perf:`, `test:`, 
-and others.
+        feat(login): add login feature
 
-7. **footers** other than `BREAKING CHANGE: <description>` may be provided and 
-follow a convention similar to git trailer format.
+    In this example, a login feature was added.
 
-Additional types are not mandated by the Conventional Commits specification, and 
-have no implicit effect in Semantic Versioning (unless they include a BREAKING 
-CHANGE). A scope may be provided to a commit’s type, to provide additional 
-contextual information and is contained within parenthesis, e.g., `feat(parser): 
-add ability to parse arrays`.
+3. **Breaking Change**: This type of commit message is used when you make a 
+change that breaks the API or requires other developers to make changes in their 
+code.
+        
+        feat(database): change database library
 
-¹ref.: https://www.conventionalcommits.org/en/v1.0.0/#summary
+        BREAKING CHANGE: The database connector for MySQL has been removed. It 
+        has been replaced by a connector for PostgreSQL.
+
+    In this example, the database library was changed, which is a breaking 
+    change.
+
+4. **Types**: Here are some examples of other types of commit messages:
+
+        docs(readme): update readme
+        style(server): fix indentation
+        refactor(database): refactor database connection
+        test(login): add tests for login
+
+    In these examples, the readme was updated, the indentation in the server 
+    code was fixed, the database connection was refactored, and tests for login 
+    were added.
+
+5. **Footers**: This is an example of a commit message with a footer:
+
+        feat(login): add login feature
+
+        The login feature uses OAuth 2.0 for authentication.
+
+        Issue #123
+
+    In this example, the footer Issue #123 links the commit to an issue in the 
+    issue tracker.
+
+
+### View and change the subject of the last commit
+
+To see the last commit, you can use the `git log` command. Here are some steps:
+
+1. View the Commit History: Use the `git log` command to list the commits made 
+in the repository in reverse chronological order. Each commit will be listed 
+with its SHA-1 checksum, the author’s name and email, the date written, and the 
+commit message.
+
+        git log
+
+1. View the Last Commit: If you want to see the last commit, you can use the 
+`-1` option with `git log`.
+
+        git log -1
+
+    This will show you the author, the date and time that the commit was made, 
+    the full hash id, and the commit message.
+
+To change the subject of the last commit, you can use the `git commit --amend` 
+command. This command lets you modify the most recent commit. Here’s how you can 
+do it:
+
+    git commit --amend -m "New commit message"
+
+This will change the subject of the most recent commit to "New commit message".
+
+
+### How to uncommit last commit in git
+
+To uncommit the last commit in Git, you can use the `git reset` command. Here 
+are some options:
+
+1. Keep the Changes: If you want to uncommit your last commit but keep the 
+changes in your working directory, you can use the `--soft` option.
+
+        git reset --soft HEAD~1
+
+    This command will undo your last commit, but it will keep your changes and 
+    your staging intact.
+
+2. Discard the Changes: If you want to uncommit your last commit and discard the 
+changes, you can use the `--hard` option.
+
+        git reset --hard HEAD~1
+
+    This command will undo your last commit and discard the changes.
 
 
 ## Update your local working branch
@@ -148,7 +227,7 @@ remote tracking branch when using the `<refspec>` option that would otherwise
 not be fetched due to conflicts.
 
 
-## Check changes in the repository for different branches 
+## Check differences between two repository branches 
 
 You can check if there are changes to push to a remote repository in Git using 
 the following commands:
