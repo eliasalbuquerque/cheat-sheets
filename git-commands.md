@@ -2,7 +2,7 @@
 title: 'git-commands.md'
 author: 'Elias Albuquerque'
 created: '2023-11-30'
-update: '2023-12-01'
+update: '2023-12-09'
 -->
 
 
@@ -11,18 +11,22 @@ update: '2023-12-01'
 
 - [Create a repository from local repository](#create-a-repository-from-local-repository)
 - [Create and switch to a new branch](#create-and-switch-to-a-new-branch)
-- [How to commit changes](#how-to-commit-changes)
-  - [Some examples to best practices to commit](#some-examples-to-best-practices-to-commit)
-  - [View and change the subject of the last commit](#view-and-change-the-subject-of-the-last-commit)
-  - [How to uncommit last commit in git](#how-to-uncommit-last-commit-in-git)
 - [Update your local working branch](#update-your-local-working-branch)
+- [How to commit:](#how-to-commit)
+  - [Some examples to best practices to commit](#some-examples-to-best-practices-to-commit)
+  - [View the last commit](#view-the-last-commit)
+  - [Change the subject or add a new file to a previous commit](#change-the-subject-or-add-a-new-file-to-a-previous-commit)
+  - [How to uncommit last commit in git](#how-to-uncommit-last-commit-in-git)
 - [Check differences between two repository branches](#check-differences-between-two-repository-branches)
 
 
+
+
+<!-- 01 -->
 ## Create a repository from local repository
 
-To create a GitHub repository from a local ${title} repository, you can follow these 
-steps:
+To create a GitHub repository from a local ${title} repository, you can follow 
+these steps:
 
 1. Initialize a local Git repository (if not already done):
 
@@ -34,8 +38,8 @@ steps:
         git commit -m "Initial commit"
 
 3. Create a new repository on GitHub: You can do this via the GitHub website. 
-Do not initialize the repository with a README, .gitignore, or License. This 
-new repository should be completely empty.
+    Do not initialize the repository with a README, .gitignore, or License. This 
+    new repository should be completely empty.
 
 4. Link the local repository to the GitHub repository:
 
@@ -55,10 +59,13 @@ Now your local repository is connected to your GitHub repository. Any changes
 you make locally can be pushed to GitHub using git push.
 
 
+
+
+<!-- 02 -->
 ## Create and switch to a new branch
 
 1. You can create a new branch and switch to it using git checkout -b 
-`<new-branch>`, where `<new-branch>` should be the name of the branch.
+    `<new-branch>`, where `<new-branch>` should be the name of the branch.
 
         git checkout -b <new-branch>
 
@@ -72,13 +79,42 @@ means that in the future, you can just use `git push` and `git pull` without
 specifying the branch.
 
 
-## How to commit changes
+
+
+<!-- 03 -->
+## Update your local working branch
+
+You should use `git pull` regularly on the branches you are working on locally. 
+Without `git pull`, your local branch wouldn’t have any of the updates that are 
+present on the remote.
+
+Here’s how you can use `git pull`:
+
+    git pull
+
+This command updates your local working branch with commits from the remote.
+
+There are also options you can use with `git pull`:
+
+- `git pull --rebase`: This updates your local working branch with commits from 
+the remote, but rewrites history so any local commits occur after all new 
+commits coming from the remote, avoiding a merge commit.
+
+- `git pull --force`: This option allows you to force a fetch of a specific 
+remote tracking branch when using the `<refspec>` option that would otherwise 
+not be fetched due to conflicts.
+
+
+
+
+<!-- 04 -->
+## How to commit:
 
 To commit changes in Git, you can follow these steps:
 
 1. Stage your changes: Before you can commit your changes, you need to stage 
-them. Staging is a way to select which changes you want to commit. You can 
-stage files using the `git add` command:
+    them. Staging is a way to select which changes you want to commit. You can 
+    stage files using the `git add` command:
 
         git add <file>
 
@@ -86,7 +122,7 @@ stage files using the `git add` command:
     stage all changes, you can use `.` or `-A` instead of `<file>`.
 
 2. Commit your changes: After staging your changes, you can commit them using 
-the `git commit` command:
+    the `git commit` command:
 
         git commit -m "<subject>" -m "<description>"
 
@@ -97,14 +133,17 @@ the `git commit` command:
     release. This message will be associated with the commit and can help you 
     and others understand what changes were made.
 
-1. Push your changes: If you’re working with a remote repository, you can push 
-your changes to it using the `git push` command:
+3. Push your changes: If you’re working with a remote repository, you can push 
+    your changes to it using the `git push` command:
 
         git push
 
-This will push your commits to the remote repository.
+    This will push your commits to the remote repository.
 
 
+
+<!-- ## How to commit: -->
+<!-- 4.1 -->
 ### Some examples to best practices to commit
 
 1. **Fix**: This type of commit message is used when you make a bug fix.
@@ -114,15 +153,15 @@ This will push your commits to the remote repository.
     In this example, a server connection issue was fixed.
 
 2. **Feat**: This type of commit message is used when you introduce a new 
-feature.
+    feature.
 
         feat(login): add login feature
 
     In this example, a login feature was added.
 
 3. **Breaking Change**: This type of commit message is used when you make a 
-change that breaks the API or requires other developers to make changes in their 
-code.
+    change that breaks the API or requires other developers to make changes in 
+    their code.
         
         feat(database): change database library
 
@@ -155,91 +194,104 @@ code.
     issue tracker.
 
 
-### View and change the subject of the last commit
+
+<!-- ## How to commit: -->
+<!-- 4.2 -->
+### View the last commit
 
 To see the last commit, you can use the `git log` command. Here are some steps:
 
-1. View the Commit History: Use the `git log` command to list the commits made 
-in the repository in reverse chronological order. Each commit will be listed 
-with its SHA-1 checksum, the author’s name and email, the date written, and the 
-commit message.
+1. **View the Commit History**: Use the `git log` command to list the commits 
+    made in the repository in reverse chronological order. Each commit will be 
+    listed with its SHA-1 checksum, the author’s name and email, the date 
+    written, and the commit message.
 
         git log
 
-1. View the Last Commit: If you want to see the last commit, you can use the 
-`-1` option with `git log`.
+2. **View the Last Commit**: If you want to see the last commit, you can use the 
+    `-1` option with `git log`.
 
         git log -1
 
-    This will show you the author, the date and time that the commit was made, 
+    This will show the author, the date and time that the commit was made, 
     the full hash id, and the commit message.
 
-To change the subject of the last commit, you can use the `git commit --amend` 
-command. This command lets you modify the most recent commit. Here’s how you can 
-do it:
+3. **View the Files of the Last Commit**: If you want to see just the names of 
+    the files that were changed in the last commit, you can use the 
+    `--name-status` option:
 
-    git commit --amend -m "New commit message"
+        git log --name-status -1
 
-This will change the subject of the most recent commit to "New commit message".
+4. **See a summary in last commit**: And if you want to see a summary of the 
+    changes made in the last commit, you can use the `--stat` option:
+
+        git log --stat -1
 
 
+
+<!-- ## How to commit: -->
+<!-- 4.3 -->
+### Change the subject or add a new file to a previous commit
+
+To add a new file to the most recent commit in Git, you can follow these steps:
+
+1. Stage the new file for commit using the `git add` command:
+
+        git add <file-name>
+
+2. Amend the previous commit with the new file using the `git commit --amend` 
+    command:
+
+        git commit --amend -m "New commit message"
+
+    This will open a text editor where you can modify the commit message. If 
+    you don’t want to change the commit message, you can use the `--no-edit` 
+    option:
+
+        git commit --amend --no-edit
+
+
+
+
+<!-- ## How to commit: -->
+<!-- 4.4 -->
 ### How to uncommit last commit in git
 
 To uncommit the last commit in Git, you can use the `git reset` command. Here 
 are some options:
 
 1. Keep the Changes: If you want to uncommit your last commit but keep the 
-changes in your working directory, you can use the `--soft` option.
+    changes in your working directory, you can use the `--soft` option.
 
         git reset --soft HEAD~1
 
     This command will undo your last commit, but it will keep your changes and 
     your staging intact.
 
-2. Discard the Changes: If you want to uncommit your last commit and discard the 
-changes, you can use the `--hard` option.
+1. Discard the Changes: If you want to uncommit your last commit and discard the 
+    changes, you can use the `--hard` option.
 
         git reset --hard HEAD~1
 
     This command will undo your last commit and discard the changes.
 
 
-## Update your local working branch
-
-You should use `git pull` regularly on the branches you are working on locally. 
-Without `git pull`, your local branch wouldn’t have any of the updates that are 
-present on the remote.
-
-Here’s how you can use `git pull`:
-
-    git pull
-
-This command updates your local working branch with commits from the remote.
-
-There are also options you can use with `git pull`:
-
-- `git pull --rebase`: This updates your local working branch with commits from 
-the remote, but rewrites history so any local commits occur after all new 
-commits coming from the remote, avoiding a merge commit.
-
-- `git pull --force`: This option allows you to force a fetch of a specific 
-remote tracking branch when using the `<refspec>` option that would otherwise 
-not be fetched due to conflicts.
 
 
+<!-- 05 -->
 ## Check differences between two repository branches 
 
 You can check if there are changes to push to a remote repository in Git using 
 the following commands:
 
 1. `git status`: This command shows the status of your working directory and 
-staging area. If there are changes that have been committed locally but not yet 
-pushed to the remote repository, `git status` will indicate this.
+    staging area. If there are changes that have been committed locally but not 
+    yet pushed to the remote repository, `git status` will indicate this.
 
         git status
 
-2. You can compare two branches in Git using the `git diff` command. Here’s how 
-you can do it:
+1. You can compare two branches in Git using the `git diff` command. Here’s how 
+    you can do it:
 
         git diff <branch1>..<branch2>
 
@@ -247,11 +299,10 @@ you can do it:
     to compare. This command will show the differences between the latest 
     commits of the two branches.
 
-3. If you want to see a list of commits that are in one branch but not the 
-other, you can use the `git log` command:
+1. If you want to see a list of commits that are in one branch but not the 
+    other, you can use the `git log` command:
 
         git log <branch1>..<branch2>
 
     This command will show the commits that are in `<branch2>` but not in 
     `<branch1>`.
-
