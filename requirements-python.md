@@ -9,38 +9,51 @@ update: '2023-12-20'
 # Listing Python Project Dependencies
 
 You can generate the `requirements.txt` file and list all the dependencies of 
-your project using the `pipreqs` module.
+your project.
 
 
-## Installing the pipreqs module:
+- [Using pipreqs:](#using-pipreqs)
+- [Using pigar:](#using-pigar)
+
+
+
+## Using pipreqs:
 
 You can install the `pipreqs` module with the following command:
 
-```python
+```terminal
 pip install pipreqs
 ```
 
+To execute **pipreqs** in the project directory, use the following command:
 
-## Running pipreqs module in the project directory:
-
-To execute `pipreqs` in the project directory, use the following command:
-
-```python
+```terminal
 pipreqs /path/to/project/
 ```
 
 Alternatively, if you’re already in the directory, you can simply use:
 
-```python
+```terminal
 pipreqs .
 ```
 
 And if a `requirements.txt` file already exists, you can overwrite it with:
 
-```python
+```terminal
 pipreqs . --force
 ```
 
-This module traverses the project directory and lists all the modules used in 
-the application, eliminating the need to create virtual environments. This way, 
-you can use the global environment for the installation of external modules.
+
+## Using pigar:
+
+You can install the `pigar` module for generate the requirements file:
+
+```terminal
+pip install pigar
+```
+
+To execute **pigar**:
+
+```terminal
+pigar generate
+```
