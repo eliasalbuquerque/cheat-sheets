@@ -44,10 +44,12 @@ steps:
    
    ```terminal
    git add .
+   ```
+   ```terminal
    git commit -m "Initial commit"
    ```
 
-4. Create a new repository on GitHub: 
+5. Create a new repository on GitHub: 
    
    - You can do this via the GitHub website. Do not initialize the repository 
      with a README, .gitignore, or License. This new repository should be 
@@ -55,7 +57,7 @@ steps:
    - If you still need to add a README or license, follow *steps 5, 7 and 6* of 
      this tutorial
 
-5. Link the local repository to the GitHub repository:
+6. Link the local repository to the GitHub repository:
    
    ```terminal
    git remote add origin https://github.com/username/repository.git
@@ -64,7 +66,7 @@ steps:
    Replace `<https://github.com/username/repository.git>` with the URL of your 
    newly created GitHub repository.
 
-6. Push the local repository to GitHub:
+7. Push the local repository to GitHub:
    
    ```terminal
    git push -u origin main
@@ -73,7 +75,7 @@ steps:
    This will push your local master branch to the origin remote (your GitHub 
    repository).
 
-7. If there is an error when merging repositories (“refusing to merge unrelated 
+8. If there is an error when merging repositories (“refusing to merge unrelated 
    histories”), use the command:
    
    ```terminal
